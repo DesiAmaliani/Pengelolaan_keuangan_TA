@@ -170,6 +170,14 @@ class Admin extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_admin', TRUE));
         } else {
+            $username= $this->input->post('username');
+            $sql= $this->db->query("SELECT username FROM admin WHERE username='$username'");
+            $cek= $sql->num_rows();
+            if($cek > 0){
+                $this->session->set_flashdata('message','<div class="alert alert-danger"><center><b>
+                            Username Sudah digunakan sebelumnya</b></center></div>');
+                redirect(site_url('admin/update'));
+		    }else{
             $data = array(
             'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
             'username' => $this->input->post('username',TRUE),
@@ -254,6 +262,7 @@ class Admin extends CI_Controller
             // $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('admin/admin'));
         }
+        }
     }
     
     public function delete($id) 
@@ -279,7 +288,7 @@ class Admin extends CI_Controller
 	$this->form_validation->set_rules('password', 'password', 'trim|required');
 	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
 	$this->form_validation->set_rules('no_hp', 'no hp', 'trim|required');
-	$this->form_validation->set_rules('foto', 'foto', 'trim|required');
+	// $this->form_validation->set_rules('foto', 'foto', 'trim|required');
 	$this->form_validation->set_rules('email', 'email', 'trim|required');
 	$this->form_validation->set_rules('active', 'active', 'trim|required');
 

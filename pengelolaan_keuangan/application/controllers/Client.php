@@ -61,6 +61,7 @@ class Client extends CI_Controller
 		'no_hp' => $row->no_hp,
 		'alamat' => $row->alamat,
         'foto' => $row->foto,
+        'id_paket' => $row->id_paket,
         "header" => "admin/header","nav" => "admin/nav",
         "container" => "admin/client/client_read",
         'user'=>$this->db->GET_WHERE('admin',['username' => $this->session->userdata('username')])->row_array()
@@ -85,6 +86,7 @@ class Client extends CI_Controller
             'password' => set_value('password'),
             'no_hp' => set_value('no_hp'),
             'alamat' => set_value('alamat'),
+            'id_paket' => set_value('id_paket'),
             // 'foto' => set_value('foto'),
             "header" => "admin/header","nav" => "admin/nav",
             "container" => "admin/client/client_form",
@@ -114,6 +116,7 @@ class Client extends CI_Controller
             'password' => $this->input->post('password',TRUE),
             'no_hp' => $this->input->post('no_hp',TRUE),
             'alamat' => $this->input->post('alamat',TRUE),
+            'id_paket' => $this->input->post('id_paket',TRUE),
             // 'foto' => $this->input->post('foto',TRUE),
             );
 
@@ -140,6 +143,7 @@ class Client extends CI_Controller
                 'no_hp' => set_value('no_hp', $row->no_hp),
                 'alamat' => set_value('alamat', $row->alamat),
                 'foto' => set_value('foto', $row->foto),
+                'id_paket' => set_value('id_paket', $row->id_paket),
                 "header" => "admin/header","nav" => "admin/nav",
                 "container" => "admin/client/client_form",
                 'user'=>$this->db->GET_WHERE('admin',['username' => $this->session->userdata('username')])->row_array()
@@ -171,6 +175,7 @@ class Client extends CI_Controller
         $password = $this->input->post('password');
         $no_hp = $this->input->post('no_hp');
         $alamat = $this->input->post('alamat');
+        $id_paket = $this->input->post('id_paket');
         $foto = $this->db->get_where('client','id_client');
 
         if($foto->num_rows()>0){
@@ -197,6 +202,7 @@ class Client extends CI_Controller
                             'password'=>$password,
                             'no_hp'=>$no_hp,
                             'alamat'=>$alamat,
+                            'id_paket'=>$id_paket,
                             'foto'=>$nama_foto
                             );
 
@@ -218,7 +224,9 @@ class Client extends CI_Controller
                             'username'=>$username,
                             'password'=>$password,
                             'no_hp'=>$no_hp,
-                            'alamat'=>$alamat);
+                            'alamat'=>$alamat,
+                            'id_paket'=>$id_paket,
+                            );
 
         }
 
@@ -254,7 +262,7 @@ class Client extends CI_Controller
 	$this->form_validation->set_rules('no_hp', 'no hp', 'trim|required');
 	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
 	// $this->form_validation->set_rules('foto', 'foto', 'trim|required');
-
+    $this->form_validation->set_rules('id_paket', 'id_paket', 'trim');
 	$this->form_validation->set_rules('id_client', 'id_client', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }

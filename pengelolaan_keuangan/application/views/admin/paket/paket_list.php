@@ -3,15 +3,15 @@
  <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>Data Akun Client</h1>
+            <h1>Data Akun Paket</h1>
           </div>
           <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Table Client</h4>
+                    <h4>Table Paket</h4>
                     <div class="card-header-form">
-                    <form action="<?php echo site_url('client/index'); ?>" class="form-inline" method="get">
+                    <form action="<?php echo site_url('paket/index'); ?>" class="form-inline" method="get">
                         <div class="input-group">
                           <input type="text" class="form-control" placeholder="Search"  name="q" value="<?php echo $q; ?>">
                           <span class="input-group-btn">
@@ -37,42 +37,26 @@
                       <table class="table table-striped">
                         <tr>
                           <th>No</th>
-                          <th>Nama Lengkap</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>No Hp</th>
-                        <th>Alamat</th>
-                        <th>Foto</th>
-                        <th>Paket</th>
-                        <th><?php echo anchor(site_url('client/create'),'Create', 'class="btn btn-primary"'); ?></th>
+                            <th>Nama</th>
+                            <th>Harga</th>
+                        <th><?php echo anchor(site_url('paket/create'),'Create', 'class="btn btn-primary"'); ?></th>
                         </tr><?php
-                        foreach ($client_data as $client)
-                        {
-                            ?>
+                            foreach ($paket_data as $paket)
+                            {
+                        ?>
                         <tr>
                           <td class="p-0 text-center">
                           <?php echo ++$start ?>
                           </td>
-                          <td><?php echo $client->nama_lengkap ?></td>
-                            <td><?php echo $client->username ?></td>
-                            <td><?php echo $client->password ?></td>
-                            <td><?php echo $client->no_hp ?></td>
-                            <td><?php echo $client->alamat ?></td>
-                              <td><img src="<?php echo base_url(); ?>tampilan/profil/<?php echo $client->foto ?>" alt="logo" width="80" class="shadow-light rounded-circle"></td></td>
-                              <?php
-                          $sql= $this->db->query("SELECT id_paket FROM client WHERE id_client='$id_client'");
-                          foreach ($sql->result() as $sql1) {?>
-                            <td><?php echo $sql1->nama; ?></td>
-                            <?php
-                          }
-                          ?>
-                            <td style="text-align:center" width="200px">
+                          <td><?php echo $paket->nama ?></td>
+			                <td>Rp.<?= number_format($paket->harga); ?></td>
+                          <td>
                                 <?php 
-                                echo anchor(site_url('client/read/'.$client->id_client),'Read'); 
+                                echo anchor(site_url('paket/read/'.$paket->id_paket),'Read'); 
                                 echo ' | '; 
-                                echo anchor(site_url('client/update/'.$client->id_client),'Update'); 
+                                echo anchor(site_url('paket/update/'.$paket->id_paket),'Update'); 
                                 echo ' | '; 
-                                echo anchor(site_url('client/delete/'.$client->id_client),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+                                echo anchor(site_url('paket/delete/'.$paket->id_paket),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
                                 ?>
                             </td>
                         </tr>

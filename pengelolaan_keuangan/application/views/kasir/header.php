@@ -74,11 +74,11 @@
             <div class="d-sm-none d-lg-inline-block">Hi, <?= $user['nama_lengkap'] ;?></div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-title">Administrator</div>
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <a href="<?php echo site_url(); ?>login_kasir/profil/<?= $user['id_kasir'] ;?>" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <a href="<?php echo site_url(); ?>login_kasir/logout" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
             </div>

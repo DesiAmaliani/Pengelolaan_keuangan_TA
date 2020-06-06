@@ -15,7 +15,12 @@
                     <h4>Total Admin</h4>
                   </div>
                   <div class="card-body">
-                    10
+                  <?php
+                    $admin = $this->db->query("SELECT Count(id_admin) as jumlah FROM admin");
+                    foreach($admin->result() as $admin){
+                      echo $admin->jumlah;
+                    }
+                    ?>
                   </div>
                 </div>
               </div>
@@ -30,7 +35,12 @@
                     <h4>Total Kasir</h4>
                   </div>
                   <div class="card-body">
-                    10
+                  <?php
+                    $kasir = $this->db->query("SELECT Count(id_kasir) as jumlah FROM kasir");
+                    foreach($kasir->result() as $kasir){
+                      echo $kasir->jumlah;
+                    }
+                    ?>
                   </div>
                 </div>
               </div>
@@ -45,7 +55,12 @@
                     <h4>Total Client</h4>
                   </div>
                   <div class="card-body">
-                    10
+                  <?php
+                    $client = $this->db->query("SELECT Count(id_client) as jumlah FROM client");
+                    foreach($client->result() as $client){
+                      echo $client->jumlah;
+                    }
+                    ?>
                   </div>
                 </div>
               </div>
@@ -60,7 +75,13 @@
                     <h4>Pemasukan</h4>
                   </div>
                   <div class="card-body">
-                    Rp 42
+                  <?php
+                    $pemasukan = $this->db->query("SELECT SUM(total_bayar) as total FROM pembayaran where status=2;");
+                    foreach($pemasukan->result() as $pem){
+                      echo "Rp ".number_format($pem->total);
+                      $pem=$pem->total;
+                    }
+                    ?>
                   </div>
                 </div>
               </div>
@@ -72,10 +93,16 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Pemgeluaran</h4>
+                    <h4>Pengeluaran</h4>
                   </div>
                   <div class="card-body">
-                    Rp 1,201
+                    <?php
+                    $pengeluaran = $this->db->query("SELECT SUM(total_peng) as total FROM pengeluaran");
+                    foreach($pengeluaran->result() as $peng){
+                      echo "Rp ".number_format($peng->total);
+                      $peng=$peng->total;
+                    }
+                    ?>
                   </div>
                 </div>
               </div>
@@ -90,7 +117,10 @@
                     <h4>Sisa Saldo</h4>
                   </div>
                   <div class="card-body">
-                    Rp 47
+                    <?php 
+                      $sisa= $pem - $peng;
+                      echo "Rp ".number_format($sisa);
+                    ?>
                   </div>
                 </div>
               </div>

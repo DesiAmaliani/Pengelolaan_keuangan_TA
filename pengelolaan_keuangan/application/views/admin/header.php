@@ -74,7 +74,7 @@
             <div class="d-sm-none d-lg-inline-block">Hi, <?= $user['nama_lengkap'] ;?></div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-title">Administrator</div>
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <a href="<?php echo site_url(); ?>login_admin/profil/<?= $user['id_admin'] ;?>" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>
               <div class="dropdown-divider"></div>

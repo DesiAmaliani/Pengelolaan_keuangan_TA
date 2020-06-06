@@ -25,6 +25,13 @@
                   <li><a class="nav-link" href="<?php echo site_url(); ?>admin/client">Akun Client</a></li>
                 </ul>
               </li>
+              <li class="menu-header">Paket</li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-pencil-ruler"></i> <span>Paket</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="<?php echo site_url(); ?>admin/paket">Paket</a></li>
+                </ul>
+              </li>
               <li class="menu-header">Data Keuangan</li>
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-dollar-sign"></i> <span>Kelola Keuangan</span></a>
@@ -36,6 +43,9 @@
               </li>
               <li class="nav-item dropdown">
                 <a href="<?php echo site_url(); ?>admin/transaksi" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>Transaksi</span></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a href="<?php echo site_url(); ?>admin/tagihan" class="nav-link"><i class="fas fa-pencil-ruler"></i> <span>Tagihan</span></a>
               </li>
             </ul>
         </aside>

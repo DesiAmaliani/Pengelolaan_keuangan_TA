@@ -15,7 +15,12 @@
                     <h4>Total Admin</h4>
                   </div>
                   <div class="card-body">
-                    10
+                  <?php
+                    $admin = $this->db->query("SELECT Count(id_admin) as jumlah FROM admin");
+                    foreach($admin->result() as $admin){
+                      echo $admin->jumlah;
+                    }
+                    ?>
                   </div>
                 </div>
               </div>
@@ -30,7 +35,12 @@
                     <h4>Total Kasir</h4>
                   </div>
                   <div class="card-body">
-                    42
+                    <?php
+                    $admin = $this->db->query("SELECT Count(id_admin) as jumlah FROM admin");
+                    foreach($admin->result() as $admin){
+                      echo $admin->jumlah;
+                    }
+                    ?>
                   </div>
                 </div>
               </div>
@@ -45,7 +55,18 @@
                     <h4>Sisa Saldo</h4>
                   </div>
                   <div class="card-body">
-                    1,201
+                  <?php
+                    $pemasukan = $this->db->query("SELECT SUM(total_bayar) as total FROM pembayaran where status=2;");
+                    foreach($pemasukan->result() as $pem){
+                      $pem=$pem->total;
+                    }
+                    $pengeluaran = $this->db->query("SELECT SUM(total_peng) as total FROM pengeluaran");
+                    foreach($pengeluaran->result() as $peng){
+                      $peng=$peng->total;
+                    }
+                    $sisa= $pem - $peng;
+                    echo "Rp ".number_format($sisa);
+                    ?>
                   </div>
                 </div>
               </div>

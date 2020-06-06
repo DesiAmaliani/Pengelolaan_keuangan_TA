@@ -19,6 +19,13 @@
                         <tr><td>No Hp</td><td><?php echo $no_hp; ?></td></tr>
                         <tr><td>Alamat</td><td><?php echo $alamat; ?></td></tr>
                         <tr><td>Foto</td><td><img src="<?php echo base_url(); ?>tampilan/profil/client/<?php echo $foto ?>" alt="logo" width="80" class="shadow-light rounded-circle"></td></tr>
+                        <?php
+                        $sql= $this->db->query("SELECT id_paket FROM client WHERE id_client='$id_client'");
+                        foreach ($sql->result() as $sql1) {?>
+                          <tr><td>Paket</td><td><?php echo $sql1->nama; ?></td></tr>
+                          <?php
+                        }
+                        ?>
                         <tr><td></td><td><a href="<?php echo site_url('admin/client') ?>" class="btn btn-default">Cancel</a></td></tr>
                 </table>
                 </div>
