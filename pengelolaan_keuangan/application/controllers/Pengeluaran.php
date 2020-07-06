@@ -297,7 +297,7 @@ class Pengeluaran extends CI_Controller
     public function word()
     {
         header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment;Filename=pengeluaran.doc");
+        header("Content-Disposition: attachment;Filename=rekap_semua_pengeluaran.doc");
 
         $data = array(
             'pengeluaran_data' => $this->Pengeluaran_model->get_all(),
@@ -306,6 +306,21 @@ class Pengeluaran extends CI_Controller
         
         $this->load->view('admin/pengeluaran/pengeluaran_doc',$data);
     }
+
+    public function word_tahun($id)
+    {
+        header("Content-type: application/vnd.ms-word");
+        header("Content-Disposition: attachment;Filename=rekap_pengeluaran_'$id'.doc");
+
+        $data = array(
+            // 'pengeluaran_data' => $this->Pengeluaran_model->get_all(),
+            'id' =>$id,
+            'start' => 0
+        );
+        
+        $this->load->view('admin/pengeluaran/pengeluaran_doc_tahun',$data);
+    }
+
 
 }
 

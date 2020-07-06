@@ -24,7 +24,7 @@
                         <th>No</th>
                         <th>Nama Client</th>
                         <th>Paket</th>
-                        <th>Bulan</th>
+                        <th>Periode</th>
                         <th>Total Bayar</th>
                         <th>Status</th>
                         <!-- site_url('tagihan/create') -->
@@ -32,17 +32,21 @@
                           <i class="fas fa-pencil-ruler fa-sm fa-fw mr-2 text-gray-400"></i>
                           Tambah Tagihan
                         </a><?php //echo anchor(site_url('#'),'Tambah Tagihan', 'class="btn btn-primary data-toggle="modal" data-target="#logoutModal""'); ?></th>
-                        </tr><?php
-                            foreach ($pembayaran_data as $pembayaran)
+                        </tr>
+                        <?php
+                        $pembayaran_data= $this->db->query("SELECT * FROM pembayaran inner join paket on pembayaran.id_paket=paket.id_paket inner join client on pembayaran.id_client=client.id_client Where status=0");
+                            foreach ($pembayaran_data->result() as $pembayaran)
                             {
                                 ?>
                                 <tr>
                             <td width="80px"><?php echo ++$start ?></td>
-                            <td><?php echo $pembayaran->id_client ?></td>
-                            <td><?php echo $pembayaran->id_paket ?></td>
+                            <td><?php echo $pembayaran->nama_lengkap ?></td>
+                            <td><?php echo $pembayaran->nama ?></td>
                             <td><?php echo $pembayaran->bulan ?></td>
                             <td><?php echo $pembayaran->total_bayar ?></td>
-                            <td><?php echo $pembayaran->status ?></td>
+                            <td><div class="badge badge-danger"><?php 
+                            if($pembayaran->status==0){
+                            echo "Belum Bayar"; } ?></div></td>
                         </tr>
                                 <?php
                             }
@@ -70,21 +74,27 @@
           </button>
         </div>
         <div class="modal-body">Pilih paket terlebih dahulu
+        <!-- <form action="<?php echo site_url('tagihan/create'); ?>" class="form-inline" method="get"> -->
         <div class="form-group">
-                      <select class="form-control" name="id_paket" value="<?php echo $id_paket; ?>">
+                      <!-- <select class="form-control" name="id_paket">-->
+                      <div class="row">
                       <?php
-                        $paket = $this->db->query("SELECT * FROM paket");
+                        $paket = $this->db->query("SELECT * FROM paket where nama!='Pemasangan Alat'");
                         foreach($paket->result() as $peng){?>
-                        <option value="<?php echo $peng->id_paket; ?>"><?php echo $peng->nama; ?></option>
-                        <?php
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <!-- <option value="<?php //echo $peng->id_paket; ?>"><?php //echo $peng->nama; ?></option> -->
+                        <a button class="btn btn-primary" href="<?php echo site_url('tagihan/create/'.$peng->id_paket); ?>" style="color:white;"><?php echo $peng->nama; ?></a>
+                        </div>
+                        <?php                      
                         }
                       ?>
-                      </select>
+                      </div>
+                      <!--</select> -->
                     </div>
-        </div>
-        <div class="modal-footer">
+                    <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="<?php echo site_url('admin/logout') ?>">Yes</a>
+        </div>
+        </form>
         </div>
       </div>
     </div>

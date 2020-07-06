@@ -38,7 +38,8 @@ class Pembayaran_model extends CI_Model
 	$this->db->or_like('bukti_pem', $q);
 	$this->db->or_like('id_paket', $q);
 	$this->db->or_like('bulan', $q);
-	$this->db->or_like('status', $q);
+    $this->db->or_like('status', $q);
+	$this->db->or_like('status_notif', $q);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
     }
@@ -53,7 +54,8 @@ class Pembayaran_model extends CI_Model
 	$this->db->or_like('bukti_pem', $q);
 	$this->db->or_like('id_paket', $q);
 	$this->db->or_like('bulan', $q);
-	$this->db->or_like('status', $q);
+    $this->db->or_like('status', $q);
+	$this->db->or_like('status_notif', $q);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

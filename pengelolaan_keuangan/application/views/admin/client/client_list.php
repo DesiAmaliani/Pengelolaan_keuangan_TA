@@ -39,7 +39,6 @@
                           <th>No</th>
                           <th>Nama Lengkap</th>
                         <th>Username</th>
-                        <th>Password</th>
                         <th>No Hp</th>
                         <th>Alamat</th>
                         <th>Foto</th>
@@ -55,12 +54,11 @@
                           </td>
                           <td><?php echo $client->nama_lengkap ?></td>
                             <td><?php echo $client->username ?></td>
-                            <td><?php echo $client->password ?></td>
                             <td><?php echo $client->no_hp ?></td>
                             <td><?php echo $client->alamat ?></td>
                               <td><img src="<?php echo base_url(); ?>tampilan/profil/<?php echo $client->foto ?>" alt="logo" width="80" class="shadow-light rounded-circle"></td></td>
                               <?php
-                          $sql= $this->db->query("SELECT id_paket FROM client WHERE id_client='$id_client'");
+                          $sql= $this->db->query("SELECT * FROM client inner join paket on client.id_paket=paket.id_paket WHERE id_client='$client->id_client'");
                           foreach ($sql->result() as $sql1) {?>
                             <td><?php echo $sql1->nama; ?></td>
                             <?php

@@ -38,7 +38,7 @@
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="<?php echo site_url(); ?>admin/pemasukan">Pemasukan</a></li>
                   <li><a class="nav-link" href="<?php echo site_url(); ?>admin/pengeluaran">Pengeluaran</a></li>
-                  <li><a class="nav-link" href="<?php echo site_url(); ?>admin/laporan">Laporan</a></li>
+                  <li><a class="nav-link" href="<?php echo site_url(); ?>admin/laporan_pertahun">Laporan</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">

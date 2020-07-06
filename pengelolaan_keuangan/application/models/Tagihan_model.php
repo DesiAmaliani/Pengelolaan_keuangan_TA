@@ -39,6 +39,7 @@ class Tagihan_model extends CI_Model
         $this->db->or_like('id_paket', $q);
         $this->db->or_like('bulan', $q);
         $this->db->or_like('status', $q);
+        $this->db->or_like('status_notif', $q);
         $this->db->from($this->table);
         $this->db->where('status', 0);
         return $this->db->count_all_results();
@@ -55,6 +56,7 @@ class Tagihan_model extends CI_Model
         $this->db->or_like('id_paket', $q);
         $this->db->or_like('bulan', $q);
         $this->db->or_like('status', $q);
+        $this->db->or_like('status_notif', $q);
         $this->db->limit($limit, $start);
         return $this->db->get_where($this->table, 'status', 0)->result();
     }

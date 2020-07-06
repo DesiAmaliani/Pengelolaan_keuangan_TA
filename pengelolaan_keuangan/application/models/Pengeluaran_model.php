@@ -41,8 +41,8 @@ class Pengeluaran_model extends CI_Model
     }
 
     function get_data_stok(){
-        $query = $this->db->query("SELECT SUM(total_peng) as total , MONTH(tgl_peng) as bulan FROM pengeluaran group by MONTH(tgl_peng), YEAR(tgl_peng)");
-
+        // $query = $this->db->query("SELECT * , Month(tgl_peng) as bulan FROM pengeluaran  group by Month(tgl_peng), Year(tgl_peng)");
+        $query = $this->db->query("SELECT Sum(total_peng) as total , Year(tgl_peng) as tahun FROM pengeluaran group by Year(tgl_peng)");
         if($query->num_rows() > 0){
             foreach($query->result() as $data){
                 $hasil[] = $data;

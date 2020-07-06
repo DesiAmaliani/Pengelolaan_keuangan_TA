@@ -20,7 +20,15 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>tampilan/assets/css/style.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>tampilan/assets/css/components.css"> 
   <script type="text/javascript" src="<?php echo base_url(); ?>tampilan/assets/js/page/Chart.js"></script>
-
+  <script type="text/javascript">
+      var auto_refresh = setInterval(
+      function ()
+      {
+      // $('#load').load('template.php').fadeIn("slow");
+      $('#load').load('<?php echo base_url(); ?>transaksi/re?_='+Math.random()).fadein("slow");
+      }, 10000); // refresh setiap 10000 milliseconds
+      
+  </script>
 </head>
 
 <body>

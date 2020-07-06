@@ -39,7 +39,6 @@
                           <th>No</th>
                           <th>Nama Lengkap</th>
                         <th>Username</th>
-                        <th>Password</th>
                         <th>No Hp</th>
                         <th>Alamat</th>
                         <th>Foto</th>
@@ -54,7 +53,6 @@
                           </td>
                           <td><?php echo $kasir->nama_lengkap ?></td>
                           <td><?php echo $kasir->username ?></td>
-                          <td><?php echo $kasir->password ?></td>
                           <td><?php echo $kasir->no_hp ?></td>
                           <td><?php echo $kasir->alamat ?></td>
                           <td>

@@ -40,7 +40,6 @@
                           <th>Nama Lengkap</th>
                           <th>Email</th>
                         <th>Username</th>
-                        <th>Password</th>
                         <th>No Hp</th>
                         <th>Alamat</th>
                         <th>Active</th>
@@ -57,7 +56,6 @@
                           <td><?php echo $admin->nama_lengkap ?></td>
                           <td><?php echo $admin->email ?></td>
                           <td><?php echo $admin->username ?></td>
-                          <td><?php echo $admin->password ?></td>
                           <td><?php echo $admin->no_hp ?></td>
                           <td><?php echo $admin->alamat ?></td>
                           <td><?php if($admin->active!=0){echo "Aktif";}else{echo "Tidak Aktif";} ?></td>

@@ -56,6 +56,7 @@ class Pembayaran extends CI_Controller
 		'id_paket' => $row->id_paket,
 		'bulan' => $row->bulan,
 		'status' => $row->status,
+		'status_notif' => $row->status_notif,
 	    );
             $this->load->view('pembayaran/pembayaran_read', $data);
         } else {
@@ -77,6 +78,7 @@ class Pembayaran extends CI_Controller
 	    'id_paket' => set_value('id_paket'),
 	    'bulan' => set_value('bulan'),
 	    'status' => set_value('status'),
+	    'status_notif' => set_value('status_notif'),
 	);
         $this->load->view('pembayaran/pembayaran_form', $data);
     }
@@ -96,6 +98,7 @@ class Pembayaran extends CI_Controller
 		'id_paket' => $this->input->post('id_paket',TRUE),
 		'bulan' => $this->input->post('bulan',TRUE),
 		'status' => $this->input->post('status',TRUE),
+		'status_notif' => $this->input->post('status_notif',TRUE),
 	    );
 
             $this->Pembayaran_model->insert($data);
@@ -120,6 +123,7 @@ class Pembayaran extends CI_Controller
 		'id_paket' => set_value('id_paket', $row->id_paket),
 		'bulan' => set_value('bulan', $row->bulan),
 		'status' => set_value('status', $row->status),
+		'status_notif' => set_value('status_notif', $row->status_notif),
 	    );
             $this->load->view('pembayaran/pembayaran_form', $data);
         } else {
@@ -143,6 +147,7 @@ class Pembayaran extends CI_Controller
 		'id_paket' => $this->input->post('id_paket',TRUE),
 		'bulan' => $this->input->post('bulan',TRUE),
 		'status' => $this->input->post('status',TRUE),
+		'status_notif' => $this->input->post('status_notif',TRUE),
 	    );
 
             $this->Pembayaran_model->update($this->input->post('id_pem', TRUE), $data);
@@ -174,6 +179,7 @@ class Pembayaran extends CI_Controller
 	$this->form_validation->set_rules('id_paket', 'id paket', 'trim|required');
 	$this->form_validation->set_rules('bulan', 'bulan', 'trim|required');
 	$this->form_validation->set_rules('status', 'status', 'trim|required');
+	$this->form_validation->set_rules('status_notif', 'status_notif', 'trim|required');
 
 	$this->form_validation->set_rules('id_pem', 'id_pem', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
