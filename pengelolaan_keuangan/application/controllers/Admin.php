@@ -22,6 +22,18 @@ class Admin extends CI_Controller
             $config['base_url'] = base_url() . 'admin/index.html?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'admin/index.html?q=' . urlencode($q);
         } else {
+            $config['query_string_segment'] = 'start';
+            $config['full_tag_open'] = '<div class="card-footer text-right"><nav class="d-inline-block"> <ul class="pagination mb-0"><div class="row">';
+            // $config['next_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
+            $config['next_link'] = '<div class="col-3"><i class="fas fa-chevron-right"></i></div>';
+            // $config['next_tag_close'] = '</a></li>';
+            $config['prev_link'] = '<div class="col-3"><i class="fas fa-chevron-left"></i></div>';
+            // $config['prev_tag_open'] = '<li class="page-item"><a class="page-link" href="#">';
+            // $config['prev_tag_close'] = '</a></li>';
+            $config['cur_tag_open'] = '<li class="page-item active "><a class="page-link" href="#">';
+            $config['cur_tag_close'] = '</a></li>';
+            // $config['num_tag_open'] = '<li class="page-item "><a class="page-link" href="#"></a>';
+            // $config['num_tag_close'] = '</li>';
             $config['base_url'] = base_url() . 'admin/index.html';
             $config['first_url'] = base_url() . 'admin/index.html';
         }
@@ -63,7 +75,6 @@ class Admin extends CI_Controller
 		'no_hp' => $row->no_hp,
 		'foto' => $row->foto,
 		'email' => $row->email,
-		'active' => $row->active,
         "header" => "admin/header","nav" => "admin/nav",
         "container" => "admin/admin/admin_read",
         'user'=>$this->db->GET_WHERE('admin',['username' => $this->session->userdata('username')])->row_array()
@@ -90,7 +101,6 @@ class Admin extends CI_Controller
 	    'no_hp' => set_value('no_hp'),
 	    // 'foto' => set_value('foto'),
 	    'email' => set_value('email'),
-        'active' => set_value('active'),
         "header" => "admin/header","nav" => "admin/nav",
         "container" => "admin/admin/admin_form",
         'user'=>$this->db->GET_WHERE('admin',['username' => $this->session->userdata('username')])->row_array()
@@ -121,7 +131,6 @@ class Admin extends CI_Controller
             'no_hp' => $this->input->post('no_hp',TRUE),
             // 'foto' => $this->input->post('foto',TRUE),
             'email' => $this->input->post('email',TRUE),
-            'active' => $this->input->post('active',TRUE),
             );
 
             $this->Admin_model->insert($data);
@@ -148,7 +157,6 @@ class Admin extends CI_Controller
                 'no_hp' => set_value('no_hp', $row->no_hp),
                 'foto' => set_value('foto', $row->foto),
                 'email' => set_value('email', $row->email),
-                'active' => set_value('active', $row->active),
                 "header" => "admin/header","nav" => "admin/nav",
                 "container" => "admin/admin/admin_form",
                 'user'=>$this->db->GET_WHERE('admin',['username' => $this->session->userdata('username')])->row_array()
@@ -170,24 +178,7 @@ class Admin extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_admin', TRUE));
         } else {
-            $username= $this->input->post('username');
-            $sql= $this->db->query("SELECT username FROM admin WHERE username='$username'");
-            $cek= $sql->num_rows();
-            if($cek > 0){
-                $this->session->set_flashdata('message','<div class="alert alert-danger"><center><b>
-                            Username Sudah digunakan sebelumnya</b></center></div>');
-                redirect(site_url('admin/update'));
-		    }else{
-            $data = array(
-            'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
-            'username' => $this->input->post('username',TRUE),
-            'password' => $this->input->post('password',TRUE),
-            'alamat' => $this->input->post('alamat',TRUE),
-            'no_hp' => $this->input->post('no_hp',TRUE),
-            'foto' => $this->input->post('foto',TRUE),
-            'email' => $this->input->post('email',TRUE),
-            'active' => $this->input->post('active',TRUE),
-            );
+            
             $config = array(
                 'upload_path'=>'./tampilan/profil/admin/',
                 'allowed_types'=>'jpg|png|jpeg',
@@ -200,8 +191,7 @@ class Admin extends CI_Controller
             $no_hp = $this->input->post('no_hp');
             $alamat = $this->input->post('alamat');
             $email = $this->input->post('email');
-            $active = $this->input->post('active');
-            $foto = $this->db->get_where('kasir','id_kasir');
+            $foto = $this->db->get_where('admin','id_admin');
 
             if($foto->num_rows()>0){
             $pros=$foto->row();
@@ -228,7 +218,6 @@ class Admin extends CI_Controller
                                 'no_hp'=>$no_hp,
                                 'alamat'=>$alamat,
                                 'email'=>$email,
-                                'active'=>$active,
                                 'foto'=>$nama_foto
                                 );
 
@@ -251,8 +240,7 @@ class Admin extends CI_Controller
                                 'password'=>$password,
                                 'no_hp'=>$no_hp,
                                 'alamat'=>$alamat,
-                                'email'=>$email,
-                                'active'=>$active);
+                                'email'=>$email);
 
             }
 
@@ -261,7 +249,6 @@ class Admin extends CI_Controller
             Update Record Success</b></center></div>');
             // $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('admin/admin'));
-        }
         }
     }
     
@@ -290,7 +277,6 @@ class Admin extends CI_Controller
 	$this->form_validation->set_rules('no_hp', 'no hp', 'trim|required');
 	// $this->form_validation->set_rules('foto', 'foto', 'trim|required');
 	$this->form_validation->set_rules('email', 'email', 'trim|required');
-	$this->form_validation->set_rules('active', 'active', 'trim|required');
 
 	$this->form_validation->set_rules('id_admin', 'id_admin', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

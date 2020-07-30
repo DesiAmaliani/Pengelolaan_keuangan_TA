@@ -45,8 +45,8 @@
                           <?php $client = $this->db->query("SELECT * FROM client where id_client='$id_client' ");
                           foreach($client->result() as $client){  echo $client->nama_lengkap; }?><br>
                           <?php echo $bulan; ?><br>
-                          <?php $paket = $this->db->query("SELECT * FROM paket where id_paket='$id_paket' ");
-                          foreach($paket->result() as $paket){  echo $paket->nama; }?><br>
+                          <?php $paket = $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp where id_paket='$id_paket' ");
+                          foreach($paket->result() as $paket){  echo $paket->bandwith.' ( '.$paket->nama_jp.' )'; }?><br>
                           Rp <?php echo number_format($total_bayar);?><br>
                           Rp <?php echo number_format($total_bayar);?><br>
                           <?php echo $tgl_pem;?><br>

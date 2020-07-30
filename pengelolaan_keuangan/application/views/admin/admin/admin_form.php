@@ -19,7 +19,15 @@
                     </div>
                     <div class="form-group">
                         <label for="varchar">Username <?php echo form_error('username') ?></label>
+                        <?php
+                    if($button=="Update"){?>
+                    <input type="text" class="form-control" readonly name="username" id="username" placeholder="Username" value="<?php echo $username; ?>" />
+                    <?php
+                    }else{?>
                         <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php echo $username; ?>" />
+                        <?php 
+                    }
+                    ?>
                     </div>
                     <div class="form-group">
                         <label for="varchar">Password <?php echo form_error('password') ?></label>
@@ -45,11 +53,9 @@
                     </div>
                     <img src="<?php echo base_url(); ?>tampilan/profil/admin/<?php echo $foto ?>" alt="logo" width="80" class="shadow-light rounded-circle">
                     <input type="hidden" name="id_admin" value="<?php echo $id_admin; ?>" />
-                    <input type="hidden" name="active" value="<?php echo $active; ?>" />
                       <?php
                     }else{?>
                     <input type="hidden" name="id_admin" value="<?php echo $id_admin; ?>" />
-                    <input type="hidden" name="active" value="<?php echo $active; ?>" />
                     <?php 
                     }
                     ?>

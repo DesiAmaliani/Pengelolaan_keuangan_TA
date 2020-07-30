@@ -14,8 +14,24 @@
                   <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
                     <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                     <div class="form-group">
-                        <label for="varchar">Nama <?php echo form_error('nama') ?></label>
-                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
+                        <label for="varchar">Jenis Paket <?php echo form_error('id_jp') ?></label>
+                        <select class="form-control" name="id_jp">
+                        <?php $jpaket = $this->db->query("SELECT * FROM jenis_paket where id_jp='$id_jp' ");
+                        foreach($jpaket->result() as $paket){?>
+                        <option value="<?php echo $id_jp;?>"><?php echo $paket->nama_jp;?></option>
+                        <?php } ?>
+                          <?php
+                          $jp=$this->db->query("select * from jenis_paket");
+                          foreach ($jp->result() as $jenis) {?>
+                          <option value="<?php echo $jenis->id_jp;?>"><?php echo $jenis->nama_jp;?></option>
+                          <?php
+                          }
+                          ?>
+                      </select>
+                        </div>
+                    <div class="form-group">
+                        <label for="varchar">Bandwith <?php echo form_error('bandwith') ?></label>
+                        <input type="text" class="form-control" name="bandwith" id="bandwith" placeholder="Bandwith" value="<?php echo $bandwith; ?>" />
                     </div>
                     <div class="form-group" id="only-number">
                         <label for="int">Harga <?php echo form_error('harga') ?></label>
@@ -27,6 +43,10 @@
                         </div>
                         <input type="text" class="form-control currency" name="harga" id="no_hp" placeholder="Harga" value="<?php echo $harga; ?>" />
                       </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="varchar">Kapasitas Pengguna <?php echo form_error('kap_peng') ?></label>
+                        <input type="text" class="form-control" name="kap_peng" id="kap_peng" placeholder="Kapasitas Pengguna" value="<?php echo $kap_peng; ?>" />
                     </div>
                     <input type="hidden" name="id_paket" value="<?php echo $id_paket; ?>" /> 
                   <div class="card-footer text-right">

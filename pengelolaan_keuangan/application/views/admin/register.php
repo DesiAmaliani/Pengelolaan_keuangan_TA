@@ -56,19 +56,6 @@
                       <label for="email">Email</label>
                       <input id="email" required type="email" class="form-control" name="email">
                     </div>
-                    <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                          <?php echo $captcha;?>
-                          </div>
-                        </div>
-                      <input id="captcha" required type="text" class="form-control" name="captcha">
-                      <?php $wrong = $this->input->get('cap_error');
-                    
-                    if($wrong){?><span style="color:red;">Captcha yang kamu masukan salah, silahkan ulangi lagi</span> <?php } ?>
-                    </div>
-                    </div>
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block">
                       Register

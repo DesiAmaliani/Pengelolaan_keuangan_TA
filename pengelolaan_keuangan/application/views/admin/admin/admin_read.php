@@ -20,7 +20,6 @@
                     <tr><td><b>Alamat</b></td><td><?php echo $alamat; ?></td></tr>
                     <tr><td><b>Foto</b></td><td><img src="<?php echo base_url(); ?>tampilan/profil/admin/<?php echo $foto ?>" alt="logo" width="80" class="shadow-light rounded-circle"></td></tr>
                     <tr><td>Email</td><td><?php echo $email; ?></td></tr>
-	                <tr><td>Active</td><td><?php echo $active; ?></td></tr>
                     <tr><td></td><td><a href="<?php echo site_url('admin/admin') ?>" class="btn btn-default">Cancel</a></td></tr>
                 </table>
                 </div>

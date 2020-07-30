@@ -19,6 +19,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>tampilan/assets/css/style.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>tampilan/assets/css/components.css"> 
+  <link href="<?php echo base_url(); ?>tampilan/fancyapps-fancybox-18d1712/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" media="screen">
   <script type="text/javascript" src="<?php echo base_url(); ?>tampilan/assets/js/page/Chart.js"></script>
   <script type="text/javascript">
       var auto_refresh = setInterval(
@@ -57,6 +58,19 @@
   <!-- Template JS File -->
   <script src="<?php echo base_url(); ?>tampilan/assets/js/scripts.js"></script>
   <script src="<?php echo base_url(); ?>tampilan/assets/js/custom.js"></script>
+  <script src="<?php echo base_url(); ?>tampilan/fancyapps-fancybox-18d1712/source/jquery.fancybox.js?v=2.1.5"></script>
+    
+    <script>
+      $(document).ready(function(){
+        $(".perbesar").fancybox();
+      });
+      $("#namelink").fancybox({
+        'scrolling':'no',
+        'titleShow':false,
+        'overlayOpacity':0.9,
+        'overlayColor':'#fff',
+      })
+      </script>
   <script>
     $(function() {
       $('#only-number').on('keydown', '#no_hp', function(e){

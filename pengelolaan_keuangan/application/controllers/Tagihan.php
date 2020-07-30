@@ -23,6 +23,18 @@ class Tagihan extends CI_Controller
             $config['base_url'] = base_url() . 'pembayaran/index.html?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'pembayaran/index.html?q=' . urlencode($q);
         } else {
+            $config['query_string_segment'] = 'start';
+            $config['full_tag_open'] = '<div class="card-footer text-right"><nav class="d-inline-block"> <ul class="pagination mb-0"><div class="row">';
+            // $config['next_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
+            $config['next_link'] = '<div class="col-3"><i class="fas fa-chevron-right"></i></div>';
+            // $config['next_tag_close'] = '</a></li>';
+            $config['prev_link'] = '<div class="col-3"><i class="fas fa-chevron-left"></i></div>';
+            // $config['prev_tag_open'] = '<li class="page-item"><a class="page-link" href="#">';
+            // $config['prev_tag_close'] = '</a></li>';
+            $config['cur_tag_open'] = '<li class="page-item active "><a class="page-link" href="#">';
+            $config['cur_tag_close'] = '</a></li>';
+            // $config['num_tag_open'] = '<li class="page-item "><a class="page-link" href="#"></a>';
+            // $config['num_tag_close'] = '</li>';
             $config['base_url'] = base_url() . 'pembayaran/index.html';
             $config['first_url'] = base_url() . 'pembayaran/index.html';
         }
@@ -79,26 +91,25 @@ class Tagihan extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create($id);
         } else {
-        //     $data = array(
-        //     'id_client' => $this->input->post('id_client',TRUE),
-        //     'total_bayar' => $this->input->post('total_bayar',TRUE),
-        //     'id_paket' => $this->input->post('id_paket',TRUE),
-        //     'bulan' => $this->input->post('bulan',TRUE),
-        //     'status' => $this->input->post('status',TRUE),
-        // );
             $id_client = $this->input->post('id_client');
             $total_bayar = $this->input->post('total_bayar');
             $bulan = $this->input->post('bulan');
             $status = $this->input->post('status');
             $status_notif = $this->input->post('status_notif');
             $id_paket = $this->input->post('id_paket');
+            
             foreach($id_client as $row){
+                $jatuh = $this->db->query("select * from client where id_client='$row'");
+                foreach($jatuh->result() as $jatuh_a){
+                    $nextN = mktime(0, 0, 0, date("m") + 1, $jatuh_a->jatuh_tempo , date("Y"));
+                  }
                 $data = array(
                       'id_paket' => $id_paket,
                       'total_bayar' => $total_bayar,
                       'bulan' => $bulan,
                       'status' => $status,
                       'status_notif' => $status_notif,
+                      'jatuh_temp' => date("Y-m-d", $nextN),
                       'id_client' => $row
                     );
                 $this->db->insert('pembayaran',$data);
@@ -116,7 +127,8 @@ class Tagihan extends CI_Controller
     {
 	// $this->form_validation->set_rules('id_client', 'id client', 'trim|required');
 	$this->form_validation->set_rules('total_bayar', 'total bayar', 'trim|required');
-	$this->form_validation->set_rules('id_paket', 'id paket', 'trim|required');
+    $this->form_validation->set_rules('id_paket', 'id paket', 'trim|required');
+    // $this->form_validation->set_rules('id_client', 'id client', 'trim|required');
 	$this->form_validation->set_rules('bulan', 'bulan', 'trim|required');
 	$this->form_validation->set_rules('status', 'status', 'trim|required');
 	$this->form_validation->set_rules('status_notif', 'status_notif', 'trim|required');

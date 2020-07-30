@@ -19,7 +19,15 @@
                     </div>
                     <div class="form-group">
                         <label for="varchar">Username <?php echo form_error('username') ?></label>
+                        <?php
+                    if($button=="Update"){?>
+                    <input type="text" class="form-control" name="username" id="username" readonly placeholder="Username" value="<?php echo $username; ?>" />
+                     <?php
+                    }else{?>
                         <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php echo $username; ?>" />
+                        <?php 
+                    }
+                    ?>
                     </div>
                     <div class="form-group">
                         <label for="varchar">Password <?php echo form_error('password') ?></label>

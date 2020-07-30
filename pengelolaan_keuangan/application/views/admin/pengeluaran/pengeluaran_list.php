@@ -1,5 +1,8 @@
 <?php
 $z=0;
+if($grafik==0){
+
+}else{
  foreach($grafik as $a){
   if($a->tahun==0){
     $tgl=0;
@@ -9,6 +12,7 @@ $z=0;
   // $z += $a->total_peng;
     $s[] = $a->total; 
    }
+}
 }
 ?>
  <!-- Main Content -->
@@ -296,18 +300,6 @@ $z=0;
             <?php } }?>
 
 
-        </section>
-      </div>
-      <footer class="main-footer">
-        <div class="footer-left">
-          Copyright &copy; 2020 <div class="bullet"></div> Design By PT. Cuplik Media Center
-        </div>
-        <div class="footer-right">
-         
-        </div>
-      </footer>
-    </div>
-  </div>
 
   <script>
 	var ctx = document.getElementById("myChart").getContext('2d');

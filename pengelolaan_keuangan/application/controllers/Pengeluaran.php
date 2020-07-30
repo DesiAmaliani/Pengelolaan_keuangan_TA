@@ -23,6 +23,18 @@ class Pengeluaran extends CI_Controller
             $config['base_url'] = base_url() . 'pengeluaran/index.html?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'pengeluaran/index.html?q=' . urlencode($q);
         } else {
+            $config['query_string_segment'] = 'start';
+            $config['full_tag_open'] = '<div class="card-footer text-right"><nav class="d-inline-block"> <ul class="pagination mb-0"><div class="row">';
+            // $config['next_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
+            $config['next_link'] = '<div class="col-3"><i class="fas fa-chevron-right"></i></div>';
+            // $config['next_tag_close'] = '</a></li>';
+            $config['prev_link'] = '<div class="col-3"><i class="fas fa-chevron-left"></i></div>';
+            // $config['prev_tag_open'] = '<li class="page-item"><a class="page-link" href="#">';
+            // $config['prev_tag_close'] = '</a></li>';
+            $config['cur_tag_open'] = '<li class="page-item active "><a class="page-link" href="#">';
+            $config['cur_tag_close'] = '</a></li>';
+            // $config['num_tag_open'] = '<li class="page-item "><a class="page-link" href="#"></a>';
+            // $config['num_tag_close'] = '</li>';
             $config['base_url'] = base_url() . 'pengeluaran/index.html';
             $config['first_url'] = base_url() . 'pengeluaran/index.html';
         }
@@ -275,11 +287,11 @@ class Pengeluaran extends CI_Controller
             $this->Pengeluaran_model->delete($id);
             $this->session->set_flashdata('message','<div class="alert alert-success"><center><b>
             Delete Record Success</b></center></div>');
-            redirect(site_url('admin/kasir'));
+            redirect(site_url('admin/pengeluaran'));
         } else {
             $this->session->set_flashdata('message','<div class="alert alert-warning"><center><b>
             Record Not Found</b></center></div>');
-            redirect(site_url('admin/kasir'));
+            redirect(site_url('admin/pengeluaran'));
         }
     }
 

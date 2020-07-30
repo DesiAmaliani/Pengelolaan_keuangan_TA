@@ -25,6 +25,7 @@
                         <th>Nama Client</th>
                         <th>Paket</th>
                         <th>Periode</th>
+                        <th>Jatuh Tempo</th>
                         <th>Total Bayar</th>
                         <th>Status</th>
                         <!-- site_url('tagihan/create') -->
@@ -41,8 +42,11 @@
                                 <tr>
                             <td width="80px"><?php echo ++$start ?></td>
                             <td><?php echo $pembayaran->nama_lengkap ?></td>
-                            <td><?php echo $pembayaran->nama ?></td>
+                            <td><?php  $total = $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp where id_paket='$pembayaran->id_paket' ");
+                        foreach($total->result() as $total){
+                            echo $pembayaran->bandwith.' ( '.$total->nama_jp.' )'; } ?></td>
                             <td><?php echo $pembayaran->bulan ?></td>
+                            <td><?php echo $pembayaran->jatuh_temp ?></td>
                             <td><?php echo $pembayaran->total_bayar ?></td>
                             <td><div class="badge badge-danger"><?php 
                             if($pembayaran->status==0){
@@ -79,11 +83,11 @@
                       <!-- <select class="form-control" name="id_paket">-->
                       <div class="row">
                       <?php
-                        $paket = $this->db->query("SELECT * FROM paket where nama!='Pemasangan Alat'");
+                        $paket = $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp");
                         foreach($paket->result() as $peng){?>
                         <div class="col-lg-4 col-md-4 col-sm-12">
                         <!-- <option value="<?php //echo $peng->id_paket; ?>"><?php //echo $peng->nama; ?></option> -->
-                        <a button class="btn btn-primary" href="<?php echo site_url('tagihan/create/'.$peng->id_paket); ?>" style="color:white;"><?php echo $peng->nama; ?></a>
+                        <a button class="btn btn-primary" href="<?php echo site_url('tagihan/create/'.$peng->id_paket); ?>" style="color:white;"><?php echo $peng->bandwith.' ( '.$peng->nama_jp.' )'; ?></a>
                         </div>
                         <?php                      
                         }

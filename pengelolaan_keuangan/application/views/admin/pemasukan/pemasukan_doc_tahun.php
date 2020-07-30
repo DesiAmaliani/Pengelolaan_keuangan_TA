@@ -31,7 +31,7 @@
             $hasil2= $this->db->query("SELECT * from pembayaran inner join paket on pembayaran.id_paket=paket.id_paket inner join client on pembayaran.id_client=client.id_client where year(tgl_pem)='$id' AND status=2");
             $total=0;
             $start=0;
-            foreach ($hasil2->result() as $pembayran)
+            foreach ($hasil2->result() as $pembayaran)
             {
                 ?>
                 <tr>
@@ -39,7 +39,8 @@
 		                <td><?php echo $pembayaran->id_pem ?></td>
                         <td><?php echo $pembayaran->tgl_pem ?></td>
                         <td><?php echo $pembayaran->nama_lengkap ?></td>
-                        <td><?php echo $pembayaran->nama ?></td>
+                        <td><?php $total_a = $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp where id_paket='$pembayaran->id_paket' ");
+                        foreach($total_a->result() as $total_a){ echo $pembayaran->bandwith.' ( '.$total_a->nama_jp.' )'; } ?></td>
                         <td><?php echo $pembayaran->bulan ?></td>
                         <td>Rp.<?= number_format($pembayaran->total_bayar);?></td>
                 </tr>

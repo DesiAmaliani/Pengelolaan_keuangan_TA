@@ -42,7 +42,6 @@
                         <th>Username</th>
                         <th>No Hp</th>
                         <th>Alamat</th>
-                        <th>Active</th>
                         <th>Foto</th>
                         <th><?php echo anchor(site_url('admin/create'),'Create', 'class="btn btn-primary"'); ?></th>
                         </tr><?php
@@ -58,7 +57,6 @@
                           <td><?php echo $admin->username ?></td>
                           <td><?php echo $admin->no_hp ?></td>
                           <td><?php echo $admin->alamat ?></td>
-                          <td><?php if($admin->active!=0){echo "Aktif";}else{echo "Tidak Aktif";} ?></td>
                           <td>
                          <img src="<?php echo base_url(); ?>tampilan/profil/admin/<?php echo $admin->foto ?>" alt="logo" width="80" class="shadow-light rounded-circle"></td>
                           <td><?php 

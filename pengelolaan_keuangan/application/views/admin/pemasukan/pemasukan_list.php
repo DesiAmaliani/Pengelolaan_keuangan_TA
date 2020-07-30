@@ -169,7 +169,6 @@ if($grafik==0){
                                     <th>Nama Paket</th>
                                     <th>Periode</th>
                                     <th>Total Bayar</th>
-                                    <th>Bukti Pemasukan</th>
                                     <th><?php echo anchor(site_url('pemasukan/create'),'Create', 'class="btn btn-primary"'); ?></th>
                                     </tr><?php
                                     $total = 0;
@@ -191,18 +190,11 @@ if($grafik==0){
                                         <td><?php echo $pembayaran1->id_pem ?></td>
                                         <td><?php echo $pembayaran1->tgl_pem ?></td>
                                         <td><?php echo $pembayaran1->nama_lengkap ?></td>
-                                        <td><?php echo $pembayaran1->nama ?></td>
+                                        <td><?php  $total_a = $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp where id_paket='$pembayaran1->id_paket' ");
+                        foreach($total_a->result() as $total_a){ echo $pembayaran1->bandwith.' ( '.$total_a->nama_jp.' )'; } ?></td>
                                         <td><?php echo $pembayaran1->bulan ?></td>
                                         <td>Rp.<?= number_format($pembayaran1->total_bayar) ;?></td>
-                                        <td>
-                                    <img src="<?php echo base_url(); ?>tampilan/pembayaran/<?php echo $pembayaran1->bukti_pem ?>" alt="logo" width="80" class="shadow-light"></td>
-                                        <td><?php 
-                                        echo anchor(site_url('pembayaran/read/'.$pembayaran1->id_pem),'Read'); 
-                                        echo ' | '; 
-                                        echo anchor(site_url('pembayaran/update/'.$pembayaran1->id_pem),'Update'); 
-                                        echo ' | '; 
-                                        echo anchor(site_url('pembayaran/delete/'.$pembayaran1->id_pem),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-                                        ?></td>
+                                        
                                     </tr>
                                     <?php
                                     $total += $pembayaran1->total_bayar+0;
@@ -225,7 +217,18 @@ if($grafik==0){
                             </div>
                             </div>
                         </div>
-
+                        </section>
+                      </div>
+                      <footer class="main-footer">
+                        <div class="footer-left">
+                          Copyright &copy; 2020 <div class="bullet"></div> Design By PT. Cuplik Media Center
+                        </div>
+                        <div class="footer-right">
+                        
+                        </div>
+                      </footer>
+                    </div>
+                  </div>
 
              <!-- tampilan awal -->
                     <?php } }else{?>
@@ -257,7 +260,6 @@ if($grafik==0){
                         <th>Nama Paket</th>
                         <th>Periode</th>
                         <th>Total Bayar</th>
-                        <th>Bukti Pemasukan</th>
                         </tr><?php
                         $total = 0;
                         $hasil4= $this->db->query("SELECT * from pembayaran");
@@ -277,18 +279,11 @@ if($grafik==0){
                           <td><?php echo $pembayaran->id_pem ?></td>
                           <td><?php echo $pembayaran->tgl_pem ?></td>
                           <td><?php echo $pembayaran->nama_lengkap ?></td>
-                          <td><?php echo $pembayaran->nama ?></td>
+                          <td><?php $total_c = $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp where id_paket='$pembayaran->id_paket' ");
+                        foreach($total_c->result() as $total_c){echo $pembayaran->bandwith.' ( '.$total_c->nama_jp.' )'; } ?></td>
                           <td><?php echo $pembayaran->bulan ?></td>
                             <td>Rp.<?= number_format($pembayaran->total_bayar);?></td>
-                          <td>
-                         <img src="<?php echo base_url(); ?>tampilan/pembayaran/<?php echo $pembayaran->bukti_pem ?>" alt="logo" width="80" class="shadow-light"></td>
-                          <td><?php 
-                          echo anchor(site_url('pembayaran/read/'.$pembayaran->id_pem),'Read'); 
-                          echo ' | '; 
-                          echo anchor(site_url('pembayaran/update/'.$pembayaran->id_pem),'Update'); 
-                          echo ' | '; 
-                          echo anchor(site_url('pembayaran/delete/'.$pembayaran->id_pem),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-                          ?></td>
+                          
                         </tr>
                         <?php
                         $total += $pembayaran->total_bayar+0;
@@ -311,22 +306,20 @@ if($grafik==0){
                 </div>
               </div>
             </div>
+            </section>
+            </div>
+            <footer class="main-footer">
+              <div class="footer-left">
+                Copyright &copy; 2020 <div class="bullet"></div> Design By PT. Cuplik Media Center
+              </div>
+              <div class="footer-right">
+              
+              </div>
+            </footer>
+          </div>
+        </div>
             <?php } }?>
-
-
-        </section>
-      </div>
-      <footer class="main-footer">
-        <div class="footer-left">
-          Copyright &copy; 2020 <div class="bullet"></div> Design By PT. Cuplik Media Center
-        </div>
-        <div class="footer-right">
-         
-        </div>
-      </footer>
-    </div>
-  </div>
-
+       
   <script>
 	var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {

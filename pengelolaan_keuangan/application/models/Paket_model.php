@@ -31,20 +31,26 @@ class Paket_model extends CI_Model
     
     // get total rows
     function total_rows($q = NULL) {
+        $this->db->join('jenis_paket', 'paket.id_jp = jenis_paket.id_jp');
         $this->db->like('id_paket', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('harga', $q);
-	$this->db->from($this->table);
+        // $this->db->or_like('id_jp', $q);
+        $this->db->or_like('bandwith', $q);
+        $this->db->or_like('harga', $q);
+        $this->db->or_like('kap_peng', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {
+        //$paket_data= $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp");
+        $this->db->join('jenis_paket', 'paket.id_jp = jenis_paket.id_jp');
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_paket', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('harga', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('bandwith', $q);
+        $this->db->or_like('harga', $q);
+        $this->db->or_like('kap_peng', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 

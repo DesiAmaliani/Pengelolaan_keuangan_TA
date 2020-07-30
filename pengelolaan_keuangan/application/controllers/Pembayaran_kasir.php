@@ -23,6 +23,18 @@ class Pembayaran_kasir extends CI_Controller
             $config['base_url'] = base_url() . 'pembayaran/index.html?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'pembayaran/index.html?q=' . urlencode($q);
         } else {
+            $config['query_string_segment'] = 'start';
+            $config['full_tag_open'] = '<div class="card-footer text-right"><nav class="d-inline-block"> <ul class="pagination mb-0"><div class="row">';
+            // $config['next_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
+            $config['next_link'] = '<div class="col-3"><i class="fas fa-chevron-right"></i></div>';
+            // $config['next_tag_close'] = '</a></li>';
+            $config['prev_link'] = '<div class="col-3"><i class="fas fa-chevron-left"></i></div>';
+            // $config['prev_tag_open'] = '<li class="page-item"><a class="page-link" href="#">';
+            // $config['prev_tag_close'] = '</a></li>';
+            $config['cur_tag_open'] = '<li class="page-item active "><a class="page-link" href="#">';
+            $config['cur_tag_close'] = '</a></li>';
+            // $config['num_tag_open'] = '<li class="page-item "><a class="page-link" href="#"></a>';
+            // $config['num_tag_close'] = '</li>';
             $config['base_url'] = base_url() . 'pembayaran/index.html';
             $config['first_url'] = base_url() . 'pembayaran/index.html';
         }
@@ -51,113 +63,6 @@ class Pembayaran_kasir extends CI_Controller
         }
     }
     
-    public function create() 
-    {
-        $data = array(
-            'button' => 'Create',
-            'action' => site_url('pembayaran_kasir/create_action'),
-            'id_pem' => set_value('id_pem'),
-            'id_client' => set_value('id_client'),
-            'total_bayar' => set_value('total_bayar'),
-            'id_paket' => set_value('id_paket'),
-            'bulan' => set_value('bulan'),
-            'status' => set_value('status'),
-            'bukti_pem' => set_value('bukti_pem'),
-            'status_notif' => set_value('status_notif'),
-            "header" => "kasir/header","nav" => "kasir/nav",
-            "container" => "kasir/pembayaran/pembayaran_form_create",
-            'user'=>$this->db->GET_WHERE('kasir',['username' => $this->session->userdata('username')])->row_array()
-        );
-        $this->load->view("template", $data);
-    }
-    
-    public function create_action() 
-    {
-        $this->_rules();
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->create();
-        } else {
-            //     $data = array(
-            //     'id_client' => $this->input->post('id_client',TRUE),
-            //     'total_bayar' => $this->input->post('total_bayar',TRUE),
-            //     'id_paket' => $this->input->post('id_paket',TRUE),
-            //     'bulan' => $this->input->post('bulan',TRUE),
-            //     'status' => $this->input->post('status',TRUE),
-            // );
-            $config = array(
-                'upload_path'=>'./tampilan/pembayaran/',
-                'allowed_types'=>'jpg|png|jpeg',
-                'max_size'=>2086
-                );
-            $tgl_pem = $this->input->post('tgl_pem');
-            $id_client = $this->input->post('id_client');
-            $id_paket = $this->input->post('id_paket');
-            $bulan = $this->input->post('bulan');
-            $status = $this->input->post('status');
-            $status_notif = $this->input->post('status_notif');
-            $total_bayar = $this->input->post('total_bayar');
-            $bukti_pem = $this->db->get('pembayaran');
-            if($bukti_pem->num_rows()>0){
-            $pros=$bukti_pem->row();
-            $name=$pros->bukti_pem;
-
-            if(file_exists($lok=FCPATH.'/tampilan/pembayaran/'.$name)){
-            unlink($lok);
-            }
-            if(file_exists($lok=FCPATH.'/tampilan/pembayaran/'.$name)){
-            unlink($lok);
-            }}
-
-            $this->load->library('upload',$config);
-
-            if($this->upload->do_upload('bukti_pem')){
-
-            $finfo = $this->upload->data();
-            $nama_foto = $finfo['file_name'];
-
-            $data= array(
-                                'tgl_pem'=>$tgl_pem,
-                                'id_client'=>$id_client,
-                                'id_paket'=>$id_paket,
-                                'bulan'=>$bulan,
-                                'status'=>$status,
-                                'status_notif'=>$status_notif,
-                                'total_bayar'=>$total_bayar,
-                                'bukti_pem'=>$nama_foto
-                                );
-
-            $config2 = array(
-                    'source_image'=>'tampilan/pembayaran/'.$nama_foto,
-                    'image_library'=>'gd2',
-                    'new_image'=>'tampilan/pembayaran/',
-                    'maintain_ratio'=>true,
-                    'width'=>150,
-                    'height'=>200
-                );
-
-            $this->load->library('image_lib',$config2);
-            $this->image_lib->resize();    
-
-            }else{
-            $data= array(
-                                'tgl_pem'=>$tgl_pem,
-                                'id_client'=>$id_client,
-                                'id_paket'=>$id_paket,
-                                'bulan'=>$bulan,
-                                'status'=>$status,
-                                'status_notif'=>$status_notif,
-                                'total_bayar'=>$total_bayar,
-                                );
-
-            }
-            $id = $this->db->where('id_pem', $id_pem);
-            $this->Pembayaran_kasir_model->insert($data);
-            $this->session->set_flashdata('message','<div class="alert alert-success"><center><b>
-            Create Record success</b></center></div>');
-            redirect(site_url('pembayaran_kasir/index'));
-        }
-    }
     
     public function bayar($id) 
     {
@@ -174,6 +79,7 @@ class Pembayaran_kasir extends CI_Controller
                 'bukti_pem' => set_value('bukti_pem', $row->bukti_pem),
                 'id_paket' => set_value('id_paket', $row->id_paket),
                 'bulan' => set_value('bulan', $row->bulan),
+                'jatuh_temp' => set_value('jatuh_temp', $row->jatuh_temp),
                 'status' => set_value('status', $row->status),
                 'status_notif' => set_value('status_notif', $row->status_notif),
                 "header" => "kasir/header","nav" => "kasir/nav",
@@ -205,6 +111,7 @@ class Pembayaran_kasir extends CI_Controller
             $id_client = $this->input->post('id_client');
             $id_paket = $this->input->post('id_paket');
             $bulan = $this->input->post('bulan');
+            $jatuh_temp = $this->input->post('jatuh_temp');
             $status = $this->input->post('status');
             $status_notif = $this->input->post('status_notif');
             $total_bayar = $this->input->post('total_bayar');
@@ -233,6 +140,7 @@ class Pembayaran_kasir extends CI_Controller
                                 'id_client'=>$id_client,
                                 'id_paket'=>$id_paket,
                                 'bulan'=>$bulan,
+                                'jatuh_temp'=>$jatuh_temp,
                                 'status'=>$status,
                                 'status_notif'=>$status_notif,
                                 'total_bayar'=>$total_bayar,
@@ -257,6 +165,7 @@ class Pembayaran_kasir extends CI_Controller
                                 'id_client'=>$id_client,
                                 'id_paket'=>$id_paket,
                                 'bulan'=>$bulan,
+                                'jatuh_temp'=>$jatuh_temp,
                                 'status'=>$status,
                                 'status_notif'=>$status_notif,
                                 'total_bayar'=>$total_bayar,
@@ -285,6 +194,7 @@ class Pembayaran_kasir extends CI_Controller
                 'bukti_pem' => set_value('bukti_pem', $row->bukti_pem),
                 'id_paket' => set_value('id_paket', $row->id_paket),
                 'bulan' => set_value('bulan', $row->bulan),
+                'jatuh_temp' => set_value('jatuh_temp', $row->jatuh_temp),
                 'status' => set_value('status', $row->status),
 					"container" => "kasir/pembayaran/invoice",
 					'user'=>$this->db->GET_WHERE('kasir',['username' => $this->session->userdata('username')])->row_array());
@@ -311,6 +221,7 @@ class Pembayaran_kasir extends CI_Controller
                 'bukti_pem' => set_value('bukti_pem', $row->bukti_pem),
                 'id_paket' => set_value('id_paket', $row->id_paket),
                 'bulan' => set_value('bulan', $row->bulan),
+                'jatuh_temp' => set_value('jatuh_temp', $row->jatuh_temp),
                 'status' => set_value('status', $row->status),
 					"container" => "kasir/pembayaran/invoice_print",
 					'user'=>$this->db->GET_WHERE('kasir',['username' => $this->session->userdata('username')])->row_array());
@@ -320,14 +231,25 @@ class Pembayaran_kasir extends CI_Controller
 		} else {
 			redirect(site_url("login_kasir"));
 		}
-	}
+    }
+    public function konfirmasi($id) 
+    {
+        $this->db->query('UPDATE pembayaran SET status = 2 where id_pem="'.$id.'"');
+        redirect(site_url('pembayaran_kasir'));
+    }
+    public function tolak($id) 
+    {
+        $this->db->query('UPDATE pembayaran SET status = 3 where id_pem="'.$id.'"');
+        redirect(site_url('pembayaran_kasir'));
+    }
 
     public function _rules() 
     {
 	// $this->form_validation->set_rules('id_client', 'id client', 'trim|required');
 	$this->form_validation->set_rules('total_bayar', 'total bayar', 'trim|required');
 	$this->form_validation->set_rules('id_paket', 'id paket', 'trim|required');
-	$this->form_validation->set_rules('bulan', 'bulan', 'trim|required');
+    $this->form_validation->set_rules('bulan', 'bulan', 'trim|required');
+    $this->form_validation->set_rules('jatuh_temp', 'jatuh_temp', 'trim|required');
     $this->form_validation->set_rules('status', 'status', 'trim|required');
     
 	$this->form_validation->set_rules('status_notif', 'status_notif', 'trim|required');

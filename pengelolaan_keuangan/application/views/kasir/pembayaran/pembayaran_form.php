@@ -29,14 +29,18 @@
                     <div class="form-group">
                         <label for="int">Paket <?php echo form_error('id_paket') ?></label>
                         <input type="text" class="form-control" name="id_paket" id="id_paket" placeholder="Id Paket" readonly value="<?php echo $id_paket; ?>" />
-                        <?php $paket = $this->db->query("SELECT * FROM paket where id_paket='$id_paket' ");
+                        <?php $paket = $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp  where id_paket='$id_paket' ");
                         foreach($paket->result() as $paket){?>
-                        <label for="int" style="color:blue;"><i><?php echo $paket->nama ?></i></label>
+                        <label for="int" style="color:blue;"><i><?php echo $paket->bandwith.' ( '.$paket->nama_jp.' )'; ?></i></label>
                         <?php } ?>
                       </div>
                     <div class="form-group">
-                        <label for="varchar">Bulan <?php echo form_error('bulan') ?></label>
+                        <label for="varchar">Periode <?php echo form_error('bulan') ?></label>
                         <input type="text" class="form-control" name="bulan" id="bulan" placeholder="Bulan" readonly value="<?php echo $bulan; ?>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="varchar">Jatuh Tempo<?php echo form_error('jatuh_temp') ?></label>
+                        <input type="text" class="form-control" name="jatuh_temp" id="jatuh_temp" placeholder="jatuh_temp" readonly value="<?php echo $jatuh_temp; ?>" />
                     </div>
                     <div class="form-group">
                         <label for="date">Tanggal Pembayaran <?php echo form_error('tgl_pem') ?></label>

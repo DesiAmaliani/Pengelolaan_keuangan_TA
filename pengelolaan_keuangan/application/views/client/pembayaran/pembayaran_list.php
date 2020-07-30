@@ -23,7 +23,8 @@
                         <tr>
                         <th>No</th>
                         <th>Nama Paket</th>
-                        <th>Bulan</th>
+                        <th>Periode</th>
+                        <th>Jatuh Tempo</th>
                         <th>Total Bayar</th>
                         <th>Tanggal Pembayaran</th>
                         <th>Bukti Pembayaran</th>
@@ -38,8 +39,10 @@
                                 ?>
                                 <tr>
                             <td width="80px"><?php echo ++$start ?></td>
-                            <td><?php echo $pembayaran->nama ?></td>
+                            <td><?php $total = $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp where id_paket='$pembayaran->id_paket' ");
+                        foreach($total->result() as $total){ echo $pembayaran->bandwith.' ( '.$total->nama_jp.' )'; } ?></td>
                             <td><?php echo $pembayaran->bulan ?></td>
+                            <td><?php echo $pembayaran->jatuh_temp ?></td>
                             <td>Rp <?php echo number_format($pembayaran->total_bayar); ?></td>
 			                <td><?php echo $pembayaran->tgl_pem ?></td>
                             <td><img src="<?php echo base_url(); ?>tampilan/pembayaran/<?php echo $pembayaran->bukti_pem ?>" alt="(Belum ada foto)" width="80" class="shadow-light"></td>

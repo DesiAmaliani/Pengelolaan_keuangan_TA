@@ -39,7 +39,6 @@ class Admin_model extends CI_Model
 	$this->db->or_like('no_hp', $q);
 	$this->db->or_like('foto', $q);
 	$this->db->or_like('email', $q);
-	$this->db->or_like('active', $q);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
     }
@@ -55,7 +54,6 @@ class Admin_model extends CI_Model
 	$this->db->or_like('no_hp', $q);
 	$this->db->or_like('foto', $q);
 	$this->db->or_like('email', $q);
-	$this->db->or_like('active', $q);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

@@ -1,5 +1,4 @@
-
- <!-- Main Content -->
+<!-- Main Content -->
  <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -37,8 +36,10 @@
                       <table class="table table-striped">
                         <tr>
                           <th>No</th>
-                            <th>Nama</th>
+                          <th>Jenis Paket</th>
+                            <th>Bandwith</th>
                             <th>Harga</th>
+                            <th>Kapasitas Pengguna</th>
                         <th><?php echo anchor(site_url('paket/create'),'Create', 'class="btn btn-primary"'); ?></th>
                         </tr><?php
                             foreach ($paket_data as $paket)
@@ -48,8 +49,10 @@
                           <td class="p-0 text-center">
                           <?php echo ++$start ?>
                           </td>
-                          <td><?php echo $paket->nama ?></td>
-			                <td>Rp.<?= number_format($paket->harga); ?></td>
+                          <td><?php echo $paket->nama_jp; ?></td>
+                          <td><?php echo $paket->bandwith; ?></td>
+			                    <td>Rp.<?= number_format($paket->harga); ?></td>
+                          <td><?php echo $paket->kap_peng; ?></td>
                           <td>
                                 <?php 
                                 echo anchor(site_url('paket/read/'.$paket->id_paket),'Read'); 
@@ -67,7 +70,9 @@
                     </div>
                   </div>
                   <div class="card-footer text-right">
-                  <?php echo $pagination ?>
+                  
+                        <?php echo $pagination ?>
+                      
                   </div>
                 </div>
               </div>

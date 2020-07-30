@@ -76,73 +76,18 @@ class Login_admin extends CI_Controller {
 						Username Sudah digunakan sebelumnya</b></center></div>');
 			redirect(site_url('login_admin/register'));
 		}else{	
-					$this->load->helper(array('form','url'));
-					$this->load->library('session');
-					$nama_lengkap = $this->input->post('nama_lengkap');
-					$captcha = $this->input->post('captcha');
-				if(md5($captcha)==$this->session->userdata('keycode')){
+					
 					$data = array(
 						'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
 						'username' => $this->input->post('username',TRUE),
 						'password' => $this->input->post('password',TRUE),
 						'alamat' => $this->input->post('alamat',TRUE),
 						'no_hp' => $this->input->post('no_hp',TRUE),
-						'email' => $this->input->post('email',TRUE),
-						'active' => 0
+						'email' => $this->input->post('email',TRUE)
 					);	
-					$id = $this->Model_register->insert($data);
-					//enkripsi id
-					$encrypted_id = md5($id);
-					
-					//enkripsi id
-					$encrypted_id = md5($id);
-					$this->load->library('email');
-					$config = array();
-					$config['charset'] = 'utf-8';
-					$config['useragent'] = 'Codeigniter';
-					$config['protocol']= "smtp";
-					$config['mailtype']= "html";
-					$config['smtp_host']= "ssl://smtp.gmail.com";//pengaturan smtp
-					$config['smtp_port']= "465";
-					$config['smtp_timeout']= "400";
-					$config['smtp_user']= "desi.amaliani@gmail.com"; // isi dengan email kamu
-					$config['smtp_pass']= "Liaseeamaliani112"; // isi dengan password kamu
-					$config['crlf']="\r\n";
-					$config['newline']="\r\n";
-					$config['wordwrap'] = TRUE;
-					
-					//memanggil library email dan set konfigurasi untuk pengiriman email
-					$this->email->initialize($config);
-					
-					//konfigurasi pengiriman
-					$this->email->from($config['smtp_user']);
-					$this->email->to($email);
-					$this->email->subject("Verifikasi Akun");
-					$this->email->message(
-					"Hai $nama_lengkap, silahkan verifikasi akun anda <br><br>".
-					site_url("login_admin/verification/$encrypted_id")
-					);
-					$data['nama_lengkap'] = $nama_lengkap;
-					$data['captcha']= $captcha;
-					$this->session->unset_userdata('keycode');
-					//notifikasi registrasi berhasil
-					
-						if($this->email->send()){
-							$this->session->set_flashdata('message', '<div class="alert alert-warning"><center><b>
-							Berhasil melakukan registrasi, silahkan cek email kamu</b></center></div>');
-							redirect(site_url('login_admin/register'));
-						}else{
-							//notifikasi jika email sudah terkirim atau belum terkirim
-							$this->session->set_flashdata('message', '<div class="alert alert-danger"><center><b>
-							Berhasil melakukan registrasi, namu gagal mengirim verifikasi email</b></center></div>');
-							redirect(site_url('login_admin/register'));
-						}
-					}else{
-						redirect('register?cap_error=1','refresh');
-					}
-					// $this->session->set_flashdata('message', '<div class="alert alert-success"><center><b>
-					// Register Berhasil</b></center></div>');
-					// redirect(site_url('login_admin/register'));
+					$this->session->set_flashdata('message', '<div class="alert alert-success"><center><b>
+					Register Berhasil</b></center></div>');
+					redirect(site_url('login_admin/register'));
 		}
       
 	}
@@ -159,17 +104,6 @@ class Login_admin extends CI_Controller {
 			redirect(site_url("login_admin"));
 		}
 	}
-	// public function admin()
-	// {
-	// 	if(isset($_SESSION['username'])){
-	// 	// "header" => "admin/header","nav" => "admin/nav",
-	// 	$data = array("header" => "admin/header","nav" => "admin/nav","container" => "admin/admin_list",'user'=>$this->db->GET_WHERE('admin',['username' => $this->session->userdata('username')])->row_array());
-		
-	// 	$this->load->view("template", $data);
-	// 	} else {
-	// 		redirect(site_url("login_admin"));
-	// 	}
-	// }
 	public function profil($id)
 	{
 		if(isset($_SESSION['username'])){

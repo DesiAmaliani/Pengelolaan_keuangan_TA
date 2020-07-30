@@ -30,7 +30,7 @@
             </tr><?php
             $total=0;
             $pembayaran_data= $this->db->query("SELECT * from pembayaran inner join paket on pembayaran.id_paket=paket.id_paket inner join client on pembayaran.id_client=client.id_client where status=2");
-            foreach ($pemasukan_data->result() as $pemasukan)
+            foreach ($pembayaran_data->result() as $pembayaran)
             {
                 ?>
                 <tr>
@@ -38,12 +38,13 @@
 		                <td><?php echo $pembayaran->id_pem ?></td>
                         <td><?php echo $pembayaran->tgl_pem ?></td>
                         <td><?php echo $pembayaran->nama_lengkap ?></td>
-                        <td><?php echo $pembayaran->nama ?></td>
+                        <td><?php $total_a = $this->db->query("SELECT * FROM paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp where id_paket='$pembayaran->id_paket' ");
+                        foreach($total_a->result() as $total_a){ echo $pembayaran->bandwith.' ( '.$total_a->nama_jp.' )'; } ?></td>
                         <td><?php echo $pembayaran->bulan ?></td>
                         <td>Rp.<?= number_format($pembayaran->total_bayar);?></td>	
                 </tr>
                 <?php
-                 $total += $pemasukan->total_bayar+0;
+                 $total += $pembayaran->total_bayar+0;
             }
             ?>
             <tr>

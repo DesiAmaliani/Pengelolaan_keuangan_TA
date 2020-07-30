@@ -36,7 +36,7 @@ class Login_client extends CI_Controller {
 		} else {
 			$username = $this->input->POST('username');
 			$password = $this->input->POST('password');
-			$user = $this->db->GET_WHERE('client',['username'=> $username, 'password'=> $password ])->row_array();
+			$user = $this->db->GET_WHERE('client',['username'=> $username, 'password'=> $password,  'status_client'=> '1'])->row_array();
 					if($user['username']==$username){
 						if(md5($password, $user['password'])){
 							$data =[

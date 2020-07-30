@@ -13,20 +13,24 @@
                   <div class="card-body">
                   <div class="table-responsive">
                       <table class="table table-striped">
-                      <tr><td>Nama Lengkap</td><td><?php echo $nama_lengkap; ?></td></tr>
-                        <tr><td>Username</td><td><?php echo $username; ?></td></tr>
-                        <tr><td>Password</td><td><?php echo $password; ?></td></tr>
-                        <tr><td>No Hp</td><td><?php echo $no_hp; ?></td></tr>
-                        <tr><td>Alamat</td><td><?php echo $alamat; ?></td></tr>
-                        <tr><td>Foto</td><td><img src="<?php echo base_url(); ?>tampilan/profil/client/<?php echo $foto ?>" alt="logo" width="80" class="shadow-light rounded-circle"></td></tr>
-                        <?php
-                        $sql= $this->db->query("SELECT id_paket FROM client WHERE id_client='$id_client'");
-                        foreach ($sql->result() as $sql1) {?>
-                          <tr><td>Paket</td><td><?php echo $sql1->nama; ?></td></tr>
-                          <?php
-                        }
-                        ?>
-                        <tr><td></td><td><a href="<?php echo site_url('admin/client') ?>" class="btn btn-default">Cancel</a></td></tr>
+					  <tr><td>Nama Lengkap</td><td><?php echo $nama_lengkap; ?></td></tr>
+					<tr><td>Username</td><td><?php echo $username; ?></td></tr>
+					<tr><td>No Hp</td><td><?php echo $no_hp; ?></td></tr>
+					<tr><td>Alamat</td><td><?php echo $alamat; ?></td></tr>
+					<tr><td>Tgl Bergabung</td><td><?php echo $tgl_bergabung; ?></td></tr>
+					<tr><td>Titik Koordinat</td><td><?php 
+                            echo anchor(site_url('client/lokasi/'.$id_client),'Lokasi'); 
+                           ?></td></tr>
+					<tr><td>Jatuh Tempo</td><td><?php echo $jatuh_tempo; ?></td></tr>
+                    <tr><td><b>Foto</b></td><td><img src="<?php echo base_url(); ?>tampilan/profil/client/<?php echo $foto ?>" alt="logo" width="80" class="shadow-light rounded-circle"></td></tr>
+					<tr><td>Paket</td><td><?php 
+					 $paket=$this->db->query("select * from paket inner join jenis_paket on paket.id_jp=jenis_paket.id_jp where id_paket='$id_paket'");
+					 foreach ($paket->result() as $paket) {
+						echo $paket->nama_jp."( ".$paket->bandwith." )";
+					 }
+					?></td></tr>
+					<tr><td>Status Client</td><td><?php echo $status_client; ?></td></tr>
+					<tr><td></td><td><a href="<?php echo site_url('admin/client') ?>" class="btn btn-default">Cancel</a></td></tr>
                 </table>
                 </div>
                 </div>
@@ -44,4 +48,3 @@
       </footer>
     </div>
   </div>
-
